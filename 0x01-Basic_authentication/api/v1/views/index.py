@@ -28,8 +28,15 @@ def stats() -> str:
 
 @app_views.route('/unauthorized/', strict_slashes=False)
 def custom_401() -> str:
-    """ GET /api/v1/unauthorized
-    Return:
-      - A demo route for testing the 401 error handler
+    """ 
+    GET /api/v1/unauthorized
     """
     abort(401)
+
+
+@app_views.route('/forbidden/', strict_slashes=False)
+def custom_403() -> str:
+    """ 
+    GET /api/v1/forbidden
+    """
+    abort(403)
