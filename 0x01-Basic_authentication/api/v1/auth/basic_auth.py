@@ -7,7 +7,8 @@ from api.v1.auth.auth import Auth
 class BasicAuth(Auth):
     """Basic auth class"""
 
-    def extract_base64_authorization_header(self, authorization_header: str) -> str:
+    def extract_base64_authorization_header(
+            self, authorization_header: str) -> str:
         """Method that extracts the base64 part of the authorization header"""
         if (
             authorization_header
