@@ -3,7 +3,9 @@
 
 import base64
 import binascii
+from typing import TypeVar
 from api.v1.auth.auth import Auth
+from models.user import User
 
 
 class BasicAuth(Auth):
@@ -51,3 +53,15 @@ class BasicAuth(Auth):
             email, password = decoded_base64_authorization_header.split(":")
 
         return (email, password)
+
+    def user_object_from_credentials(
+            self, user_email: str, user_pwd: str) -> TypeVar('User'):
+        """Gets the user object from the db"""
+        if user_email and user_pwd:
+            user = User()
+            search_result = user.search({"email": user_email})
+            if search_result:
+                user = search_result[0]
+                if user.is_valid_password(user_pwd):
+                    return user
+        return None
