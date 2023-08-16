@@ -15,5 +15,5 @@ class BasicAuth(Auth):
             and isinstance(authorization_header, str)
             and authorization_header.startswith("Basic ")
         ):
-            return authorization_header[5:]
+            return authorization_header[6:]
         return None
