@@ -37,7 +37,10 @@ class BasicAuth(Auth):
     def extract_user_credentials(
         self, decoded_base64_authorization_header: str
     ) -> (str, str):
-        """Extracts the user email and password from the decoded auth_header string"""
+        """
+        Extracts the user email and password from the
+        decoded auth_header string
+        """
         email = None
         password = None
         if (
