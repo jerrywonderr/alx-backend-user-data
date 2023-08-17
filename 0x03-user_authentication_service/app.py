@@ -5,13 +5,13 @@ auth_inst = Auth()
 app = Flask(__name__)
 
 
-@app.get('/', strict_slashes=False)
+@app.route('/', methods=['GET'], strict_slashes=False)
 def index():
     """Index route on GET"""
     return jsonify({"message": "Bienvenue"}), 200
 
 
-@app.post('/users', strict_slashes=False)
+@app.route('/users', methods=['POST'], strict_slashes=False)
 def users():
     """Register a user"""
     email = request.form.get("email")
