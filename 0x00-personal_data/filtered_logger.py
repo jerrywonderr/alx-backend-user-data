@@ -40,17 +40,10 @@ class RedactingFormatter(logging.Formatter):
 
 def get_logger():
     """Returns a streamlined logger object"""
-    # Create a logger named "user_data"
     logger = logging.getLogger("user_data")
     logger.setLevel(logging.INFO)
-
-    # Prevent messages from being propagated to other loggers
     logger.propagate = False
-
-    # Create a StreamHandler with RedactingFormatter
     handler = logging.StreamHandler()
-    formatter = RedactingFormatter(fields=PII_FIELDS)
-    handler.setFormatter(formatter)
+    handler.setFormatter(RedactingFormatter(PII_FIELDS))
     logger.addHandler(handler)
-
     return logger
