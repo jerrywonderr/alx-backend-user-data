@@ -3,12 +3,13 @@
 
 import re
 import logging
-from typing import Tuple
+from typing import Tuple, List
 
 PII_FIELDS = ("email", "ssn", "password", "phone", "ip")
 
 
-def filter_datum(fields, redaction, message, separator):
+def filter_datum(fields: List[str], redaction: str, message: str,
+                 separator: str) -> str:
     """obfuscate key in string"""
     for key in fields:
         message = re.sub(re.compile(rf"{key}=[^{separator}]+"),
