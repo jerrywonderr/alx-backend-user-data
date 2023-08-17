@@ -8,12 +8,14 @@ from typing import Tuple, List
 PII_FIELDS = ("email", "ssn", "password", "phone", "ip")
 
 
-def filter_datum(fields: List[str], redaction: str, message: str,
-                 separator: str) -> str:
+def filter_datum(
+    fields: List[str], redaction: str, message: str, separator: str
+) -> str:
     """obfuscate key in string"""
     for key in fields:
-        message = re.sub(re.compile(rf"{key}=[^{separator}]+"),
-                         f"{key}={redaction}", message)
+        message = re.sub(
+            re.compile(rf"{key}=[^{separator}]+"), f"{key}={redaction}", message
+        )
     return message
 
 
@@ -30,9 +32,7 @@ class RedactingFormatter(logging.Formatter):
 
     def format(self, record: logging.LogRecord) -> str:
         formatted = super().format(record)
-        return filter_datum(
-            self.fields, self.REDACTION, formatted, self.SEPARATOR
-        ).replace(";", "; ")
+        return filter_datum(self.fields, self.REDACTION, formatted, self.SEPARATOR)
 
 
 def get_logger():
