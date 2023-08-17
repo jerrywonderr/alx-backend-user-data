@@ -2,7 +2,7 @@ from flask import Flask, jsonify, request, abort, redirect
 from auth import Auth
 
 auth_inst = Auth()
-app = Flask()
+app = Flask(__name__)
 
 
 @app.get('/', strict_slashes=False)
