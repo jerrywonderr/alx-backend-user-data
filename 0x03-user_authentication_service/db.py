@@ -58,7 +58,7 @@ class DB:
             return session.query(User).filter_by(**kwargs).one()
         except Exception:
             raise NoResultFound
-    
+
     def update_user(self, user_id: int, **kwargs) -> None:
         """Update a user"""
         if not kwargs or any(x not in VALID_FIELDS for x in kwargs):
