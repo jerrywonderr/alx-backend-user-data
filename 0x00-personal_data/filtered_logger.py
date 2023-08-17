@@ -14,7 +14,8 @@ def filter_datum(
     """obfuscate key in string"""
     for key in fields:
         message = re.sub(
-            re.compile(rf"{key}=[^{separator}]+"), f"{key}={redaction}", message
+            re.compile(rf"{key}=[^{separator}]+"),
+            f"{key}={redaction}", message
         )
     return message
 
