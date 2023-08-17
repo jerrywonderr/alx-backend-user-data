@@ -9,16 +9,11 @@ PII_FIELDS = ("email", "ssn", "password", "phone", "ip")
 
 
 def filter_datum(fields, redaction, message, separator):
-    """
-    Function that obsfucates key in field
-    with redaction in message
-    """
-    input_string = message
+    """obfuscate key in string"""
     for key in fields:
-        pattern = re.compile(rf"{key}=[^{separator}]+")
-        input_string = re.sub(pattern, f"{key}={redaction}", input_string)
-
-    return input_string
+        message = re.sub(re.compile(rf"{key}=[^{separator}]+"),
+                              f"{key}={redaction}", message)
+    return message
 
 
 class RedactingFormatter(logging.Formatter):
@@ -34,8 +29,9 @@ class RedactingFormatter(logging.Formatter):
 
     def format(self, record: logging.LogRecord) -> str:
         formatted = super().format(record)
-        return filter_datum(self.fields, self.REDACTION,
-                            formatted, self.SEPARATOR).replace(';', '; ')
+        return filter_datum(
+            self.fields, self.REDACTION, formatted, self.SEPARATOR
+        ).replace(";", "; ")
 
 
 def get_logger():
