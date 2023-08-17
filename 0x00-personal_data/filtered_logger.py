@@ -13,7 +13,7 @@ def filter_datum(fields: List[str], redaction: str, message: str,
     """obfuscate key in string"""
     for key in fields:
         message = re.sub(re.compile(rf"{key}=[^{separator}]+"),
-                              f"{key}={redaction}", message)
+                         f"{key}={redaction}", message)
     return message
 
 
