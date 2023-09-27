@@ -1,2 +1,1 @@
-## Parsing Logs
-This folder contains solutions to ALX SE tasks on parsing logs and obsfucating PIIs.
+# 0x00-personal_data

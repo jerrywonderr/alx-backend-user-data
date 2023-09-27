@@ -1,24 +1,23 @@
 #!/usr/bin/env python3
-"""Function that formats log messages"""
+""" 0x05. Personal data
+"""
 
+import logging
 import os
 import re
-import logging
-from typing import List
 import mysql.connector
+from typing import List
+
 
 PII_FIELDS = ("name", "email", "phone", "ssn", "password")
 
 
-def filter_datum(
-    fields: List[str], redaction: str, message: str, separator: str
-) -> str:
-    """obfuscate key in string"""
-    for key in fields:
-        message = re.sub(
-            re.compile(rf"{key}=[^{separator}]+"),
-            f"{key}={redaction}", message
-        )
+def filter_datum(fields: List[str], redaction: str, message: str,
+                 separator: str) -> str:
+    """ Replacing """
+    for f in fields:
+        message = re.sub(rf"{f}=(.*?)\{separator}",
+                         f'{f}={redaction}{separator}', message)
     return message
 
 
@@ -41,7 +40,9 @@ class RedactingFormatter(logging.Formatter):
 
 
 def get_logger() -> logging.Logger:
-    """Returns a streamlined logger object"""
+    """ Implementing a logger.
+    """
+
     logger = logging.getLogger("user_data")
     logger.setLevel(logging.INFO)
     logger.propagate = False
